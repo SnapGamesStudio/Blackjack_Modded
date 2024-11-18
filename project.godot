@@ -1,0 +1,50 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Blackjack Modded"
+run/main_scene="res://example/example.tscn"
+config/features=PackedStringArray("4.2", "GL Compatibility")
+config/icon="res://assets/logo (2).png"
+
+[autoload]
+
+Event="*res://event.gd"
+TGExport="*res://addons/thegates_export/exporters/export.gd"
+Global="*res://global.gd"
+Leaderboards="*res://addons/quiver_leaderboards/leaderboards.tscn"
+PlayerAccounts="*res://addons/quiver_player_accounts/player_accounts.tscn"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/post_processing/plugin.cfg", "res://addons/quiver_leaderboards/plugin.cfg", "res://addons/quiver_player_accounts/plugin.cfg", "res://addons/simple_card_pile_ui/plugin.cfg", "res://addons/thegates_export/plugin.cfg")
+
+[input]
+
+lmb={
+"deadzone": 0.5,
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
+]
+}
+
+[quiver]
+
+general/auth_token="4pSTOzKxNA9fjnXFbACgk2hbSACkPD52fQeMzTuc"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method.mobile="gl_compatibility"

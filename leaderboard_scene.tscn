@@ -1,0 +1,133 @@
+[gd_scene load_steps=8 format=3 uid="uid://c4guds022lrbn"]
+
+[ext_resource type="Script" path="res://leaderboard_scene.gd" id="1_ca5ms"]
+[ext_resource type="FontFile" uid="uid://dvyd0s44dolrv" path="res://pixeboy-font/Pixeboy-z8XGD.ttf" id="1_qnxkk"]
+[ext_resource type="Shader" path="res://shaders/background.gdshader" id="3_4wfk7"]
+
+[sub_resource type="Theme" id="Theme_howfm"]
+default_font = ExtResource("1_qnxkk")
+default_font_size = 110
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_byfnl"]
+shader = ExtResource("3_4wfk7")
+shader_parameter/OCTAVE = 6
+shader_parameter/mulscale = 26.21
+shader_parameter/height = 0.6
+shader_parameter/tide = 0.03
+shader_parameter/foamthickness = 0.1
+shader_parameter/timescale = 1.475
+shader_parameter/waterdeep = 13.605
+shader_parameter/WATER_COL = Vector4(0.04, -0.03, 0.88, 1)
+shader_parameter/WATER2_COL = Vector4(0.04, 0.35, 0.78, 1)
+shader_parameter/FOAM_COL = Vector4(0.8125, 0.9609, 0.9648, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_myu74"]
+bg_color = Color(1, 0.278431, 0.278431, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+expand_margin_top = 10.0
+expand_margin_bottom = 10.0
+shadow_size = 1
+shadow_offset = Vector2(2.45, 3.33)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_boa5t"]
+bg_color = Color(1, 0.278431, 0.278431, 1)
+corner_radius_top_left = 14
+corner_radius_top_right = 14
+corner_radius_bottom_right = 14
+corner_radius_bottom_left = 14
+expand_margin_top = 10.0
+expand_margin_bottom = 10.0
+shadow_size = 1
+shadow_offset = Vector2(2.45, 3.33)
+
+[node name="leaderboard_scene" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_howfm")
+script = ExtResource("1_ca5ms")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.278431, 0.278431, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_byfnl")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.14902, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.180392, 0, 0.901961)
+
+[node name="HBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_right = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 35
+
+[node name="HSeparator2" type="HSeparator" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.247059)
+theme_override_constants/shadow_offset_x = 15
+text = "submit your score
+ to the leaderbaord"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_placeholder_color = Color(1, 1, 1, 1)
+text = "name"
+placeholder_text = "name"
+alignment = 1
+clear_button_enabled = true
+flat = true
+
+[node name="submit_b" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_myu74")
+text = "submit"
+
+[node name="exit" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_boa5t")
+text = "exit"
+
+[connection signal="text_submitted" from="HBoxContainer/LineEdit" to="." method="_on_line_edit_text_submitted"]
+[connection signal="pressed" from="HBoxContainer/submit_b" to="." method="_on_submit_b_pressed"]
+[connection signal="pressed" from="HBoxContainer/exit" to="." method="_on_exit_pressed"]

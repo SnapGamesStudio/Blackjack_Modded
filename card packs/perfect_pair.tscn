@@ -1,0 +1,183 @@
+[gd_scene load_steps=15 format=3 uid="uid://qprk7uiawcta"]
+
+[ext_resource type="Script" path="res://card packs/multiply.gd" id="1_ql3fi"]
+[ext_resource type="Script" path="res://addons/simple_card_pile_ui/card_ui_data.gd" id="2_gwd3e"]
+[ext_resource type="Texture2D" uid="uid://dkjwhfc8qd3xq" path="res://assets/Perfect Pair.png" id="4_2ojow"]
+[ext_resource type="Shader" path="res://example/special card.gdshader" id="5_xs5tu"]
+
+[sub_resource type="Resource" id="Resource_v660i"]
+script = ExtResource("2_gwd3e")
+nice_name = "Perfect Pair"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qeecg"]
+shader = ExtResource("5_xs5tu")
+shader_parameter/shine_color = Vector4(1, 1, 1, 0.155)
+shader_parameter/shine_progress = 0.0
+shader_parameter/shine_size = 0.17
+shader_parameter/shine_angle = 45.0
+
+[sub_resource type="Animation" id="Animation_xxpyr"]
+resource_name = "Clicked"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:material:shader_parameter/dissolve_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_kkm08"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shine:material:shader_parameter/shine_progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:material:shader_parameter/dissolve_value")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_5nvo4"]
+resource_name = "shine"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shine:material:shader_parameter/shine_progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gx65t"]
+_data = {
+"Clicked": SubResource("Animation_xxpyr"),
+"RESET": SubResource("Animation_kkm08"),
+"shine": SubResource("Animation_5nvo4")
+}
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0oism"]
+polygon = PackedVector2Array(1, 128, 80, 128, 80, -1, 0, 0)
+
+[sub_resource type="Animation" id="Animation_orfgf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shine:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ev8ou"]
+resource_name = "float"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shine:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0523599, -0.0523599]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jnl8k"]
+_data = {
+"RESET": SubResource("Animation_orfgf"),
+"float": SubResource("Animation_ev8ou")
+}
+
+[node name="Perfect Pair" type="Control"]
+custom_minimum_size = Vector2(80, 130)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 80.0
+offset_bottom = 130.0
+size_flags_horizontal = 4
+script = ExtResource("1_ql3fi")
+card_data = SubResource("Resource_v660i")
+
+[node name="Shine" type="TextureRect" parent="."]
+modulate = Color(0.364706, 0.364706, 0.364706, 1)
+material = SubResource("ShaderMaterial_qeecg")
+custom_minimum_size = Vector2(80, 130)
+layout_mode = 2
+offset_right = 80.0
+offset_bottom = 130.0
+pivot_offset = Vector2(38.33, 60.505)
+texture = ExtResource("4_2ojow")
+expand_mode = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+modulate = Color(0.372549, 0.372549, 0.372549, 1)
+clip_children = 2
+custom_minimum_size = Vector2(80, 130)
+layout_mode = 2
+offset_right = 80.0
+offset_bottom = 130.0
+texture = ExtResource("4_2ojow")
+expand_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gx65t")
+}
+autoplay = "shine"
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_0oism")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jnl8k")
+}
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

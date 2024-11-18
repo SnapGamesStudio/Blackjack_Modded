@@ -1,0 +1,239 @@
+[gd_scene load_steps=24 format=3 uid="uid://7ugpe8qyd18"]
+
+[ext_resource type="Shader" path="res://example/special card.gdshader" id="1_2tb5u"]
+[ext_resource type="Script" path="res://card packs/King.gd" id="1_3pkxs"]
+[ext_resource type="PackedScene" uid="uid://batuwjook81r7" path="res://card packs/multiply.tscn" id="2_mqlmc"]
+[ext_resource type="Texture2D" uid="uid://be0ob3d7vi0w3" path="res://assets/King card pack.png" id="2_yn85a"]
+[ext_resource type="Shader" path="res://shaders/burn.gdshader" id="3_0psoi"]
+[ext_resource type="PackedScene" uid="uid://dgvj81dwobi0l" path="res://card packs/five_card_charlie.tscn" id="3_dr6mp"]
+[ext_resource type="PackedScene" uid="uid://qprk7uiawcta" path="res://card packs/perfect_pair.tscn" id="4_rm1x6"]
+[ext_resource type="PackedScene" uid="uid://bs06po7btycwr" path="res://card packs/dealer_reveal.tscn" id="5_mjmaa"]
+[ext_resource type="PackedScene" uid="uid://dmr6oxfsrue40" path="res://card packs/lucky_streak.tscn" id="6_cfrw2"]
+[ext_resource type="Texture2D" uid="uid://bpjxsk1mxfl77" path="res://assets/1x1_#ffffffff.png" id="7_xqsgs"]
+
+[sub_resource type="Gradient" id="Gradient_ybmcg"]
+offsets = PackedFloat32Array(0, 0.273333, 0.706667, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_4xf5d"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_ikw6n"]
+width = 200
+height = 200
+seamless = true
+noise = SubResource("FastNoiseLite_4xf5d")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d1e0g"]
+shader = ExtResource("3_0psoi")
+shader_parameter/dissolve_value = 1.0
+shader_parameter/burn_size = 0.03
+shader_parameter/burn_color = Color(0, 0, 0, 1)
+shader_parameter/dissolve_texture = SubResource("NoiseTexture2D_ikw6n")
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_0oism"]
+polygon = PackedVector2Array(1, 128, 80, 128, 80, -1, 0, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tfjv6"]
+shader = ExtResource("1_2tb5u")
+shader_parameter/shine_color = Vector4(1, 1, 1, 0.155)
+shader_parameter/shine_progress = 0.0
+shader_parameter/shine_size = 0.17
+shader_parameter/shine_angle = 45.0
+
+[sub_resource type="Animation" id="Animation_xxpyr"]
+resource_name = "Clicked"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("TextureRect:material:shader_parameter/dissolve_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(),
+"transitions": PackedFloat32Array(),
+"update": 0,
+"values": []
+}
+
+[sub_resource type="Animation" id="Animation_kkm08"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shine:material:shader_parameter/shine_progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("TextureRect:material:shader_parameter/dissolve_value")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_5nvo4"]
+resource_name = "shine"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shine:material:shader_parameter/shine_progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gx65t"]
+_data = {
+"Clicked": SubResource("Animation_xxpyr"),
+"RESET": SubResource("Animation_kkm08"),
+"shine": SubResource("Animation_5nvo4")
+}
+
+[sub_resource type="Animation" id="Animation_orfgf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shine:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ev8ou"]
+resource_name = "float"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Shine:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0523599, -0.0523599]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_jnl8k"]
+_data = {
+"RESET": SubResource("Animation_orfgf"),
+"float": SubResource("Animation_ev8ou")
+}
+
+[node name="King CardPack" type="Control"]
+custom_minimum_size = Vector2(80, 130)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 80.0
+offset_bottom = 130.0
+size_flags_horizontal = 4
+script = ExtResource("1_3pkxs")
+cards_in_deck = [ExtResource("2_mqlmc"), ExtResource("3_dr6mp"), ExtResource("4_rm1x6"), ExtResource("5_mjmaa"), ExtResource("6_cfrw2")]
+
+[node name="GPUParticles2D" type="CPUParticles2D" parent="."]
+visible = false
+position = Vector2(37, 91)
+emitting = false
+amount = 113
+lifetime = 2.0
+explosiveness = 0.04
+randomness = 0.14
+lifetime_randomness = 0.03
+texture = ExtResource("7_xqsgs")
+emission_shape = 1
+emission_sphere_radius = 60.47
+gravity = Vector2(0, -50)
+angular_velocity_min = -189.09
+angular_velocity_max = 87.27
+linear_accel_min = 6.06
+linear_accel_max = 12.12
+tangential_accel_min = 2.02
+tangential_accel_max = 12.12
+damping_max = 2.02
+scale_amount_min = 0.0
+scale_amount_max = 21.21
+color = Color(1, 0.756863, 0.027451, 1)
+color_ramp = SubResource("Gradient_ybmcg")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+clip_children = 2
+material = SubResource("ShaderMaterial_d1e0g")
+custom_minimum_size = Vector2(80, 130)
+layout_mode = 2
+offset_right = 80.0
+offset_bottom = 130.0
+pivot_offset = Vector2(43.705, 64.325)
+texture = ExtResource("2_yn85a")
+expand_mode = 1
+
+[node name="LightOccluder2D2" type="LightOccluder2D" parent="TextureRect"]
+occluder = SubResource("OccluderPolygon2D_0oism")
+
+[node name="Shine" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_tfjv6")
+custom_minimum_size = Vector2(80, 130)
+layout_mode = 2
+offset_right = 80.0
+offset_bottom = 130.0
+pivot_offset = Vector2(37.965, 64.745)
+texture = ExtResource("2_yn85a")
+expand_mode = 1
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Shine"]
+occluder = SubResource("OccluderPolygon2D_0oism")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_gx65t")
+}
+autoplay = "shine"
+
+[node name="Button" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+offset_right = 80.0
+offset_bottom = 124.0
+flat = true
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_jnl8k")
+}
+autoplay = "float"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

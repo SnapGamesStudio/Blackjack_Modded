@@ -1,0 +1,185 @@
+[gd_scene load_steps=10 format=3 uid="uid://bky7gcj8d57it"]
+
+[ext_resource type="Script" path="res://scenes/main_menu.gd" id="1_jrhst"]
+[ext_resource type="Shader" path="res://shaders/background.gdshader" id="1_n1akv"]
+[ext_resource type="FontFile" uid="uid://dvyd0s44dolrv" path="res://pixeboy-font/Pixeboy-z8XGD.ttf" id="2_hg5to"]
+[ext_resource type="Script" path="res://scenes/Gamemodes.gd" id="3_0wmxr"]
+[ext_resource type="AudioStream" uid="uid://hs26wvmvf5yx" path="res://sounds/mixkit-dreaming-big-31.mp3" id="3_5kelq"]
+[ext_resource type="AudioStream" uid="uid://u84llgnkmhmb" path="res://sounds/276123__littlerobotsoundfactory__coins_single_44.mp3" id="4_8hp1m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f672m"]
+shader = ExtResource("1_n1akv")
+shader_parameter/OCTAVE = 6
+shader_parameter/mulscale = 5.0
+shader_parameter/height = 0.6
+shader_parameter/tide = 0.1
+shader_parameter/foamthickness = 0.1
+shader_parameter/timescale = 1.0
+shader_parameter/waterdeep = 0.3
+shader_parameter/WATER_COL = Vector4(0.04, 0.38, 0.88, 1)
+shader_parameter/WATER2_COL = Vector4(0.04, 0.35, 0.78, 1)
+shader_parameter/FOAM_COL = Vector4(0.8125, 0.9609, 0.9648, 1)
+
+[sub_resource type="Theme" id="Theme_b4n6h"]
+default_font = ExtResource("2_hg5to")
+default_font_size = 100
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_niosq"]
+color = Color(1, 1, 1, 1)
+grow_begin = 300.0
+grow_end = 300.0
+thickness = 30
+
+[node name="Main Menu" type="Node2D"]
+script = ExtResource("1_jrhst")
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_f672m")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -166.0
+offset_top = -106.0
+offset_right = 1618.0
+offset_bottom = 1022.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.14902, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -214.0
+offset_top = -146.0
+offset_right = 1658.0
+offset_bottom = 1038.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.254902, 0, 0.886275)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(576, 328)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MenuButtons" type="VBoxContainer" parent="CanvasLayer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -192.0
+offset_top = -68.0
+offset_right = 192.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_b4n6h")
+
+[node name="Play" type="Button" parent="CanvasLayer/MenuButtons"]
+layout_mode = 2
+text = "Play"
+flat = true
+
+[node name="Settings" type="Button" parent="CanvasLayer/MenuButtons"]
+layout_mode = 2
+text = "Settings"
+flat = true
+
+[node name="Gamemodes" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_b4n6h")
+script = ExtResource("3_0wmxr")
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/Gamemodes"]
+material = SubResource("ShaderMaterial_f672m")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -166.0
+offset_top = -106.0
+offset_right = 1618.0
+offset_bottom = 1022.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.14902, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="CanvasLayer/Gamemodes"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -214.0
+offset_top = -146.0
+offset_right = 1658.0
+offset_bottom = 1038.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.254902, 0, 0.886275)
+
+[node name="Modes" type="VBoxContainer" parent="CanvasLayer/Gamemodes"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -33.0
+offset_right = 43.5
+offset_bottom = 33.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 19
+alignment = 1
+
+[node name="HighScore" type="Button" parent="CanvasLayer/Gamemodes/Modes"]
+layout_mode = 2
+text = "HighScore"
+flat = true
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/Gamemodes/Modes"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_niosq")
+
+[node name="Boss" type="Button" parent="CanvasLayer/Gamemodes/Modes"]
+layout_mode = 2
+text = "Boss"
+flat = true
+
+[node name="exit" type="Button" parent="CanvasLayer/Gamemodes"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -55.0
+offset_bottom = 66.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 71
+text = "X"
+flat = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_5kelq")
+volume_db = -12.18
+autoplay = true
+
+[node name="click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_8hp1m")
+pitch_scale = 3.38
+
+[connection signal="pressed" from="CanvasLayer/MenuButtons/Play" to="CanvasLayer/Gamemodes" method="_on_play_pressed"]
+[connection signal="pressed" from="CanvasLayer/Gamemodes/Modes/HighScore" to="." method="_on_high_score_pressed"]
+[connection signal="pressed" from="CanvasLayer/Gamemodes/Modes/Boss" to="." method="_on_boss_pressed"]
+[connection signal="pressed" from="CanvasLayer/Gamemodes/exit" to="CanvasLayer/Gamemodes" method="_on_exit_pressed"]

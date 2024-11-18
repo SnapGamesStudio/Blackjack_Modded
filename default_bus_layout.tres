@@ -1,0 +1,50 @@
+[gd_resource type="AudioBusLayout" load_steps=8 format=3 uid="uid://d12ek3sdjo11c"]
+
+[sub_resource type="AudioEffectAmplify" id="AudioEffectAmplify_xhq8e"]
+resource_name = "Amplify"
+volume_db = 1.35
+
+[sub_resource type="AudioEffectChorus" id="AudioEffectChorus_8rbq5"]
+resource_name = "Chorus"
+wet = 1.0
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_rhk1q"]
+resource_name = "Reverb"
+
+[sub_resource type="AudioEffectDistortion" id="AudioEffectDistortion_3jjlq"]
+resource_name = "Distortion"
+
+[sub_resource type="AudioEffectPanner" id="AudioEffectPanner_g2802"]
+resource_name = "Panner"
+pan = 0.4
+
+[sub_resource type="AudioEffectDelay" id="AudioEffectDelay_mma2m"]
+resource_name = "Delay"
+
+[sub_resource type="AudioEffectDistortion" id="AudioEffectDistortion_iqvjs"]
+resource_name = "Distortion"
+mode = 2
+drive = 0.04
+post_gain = 1.87
+
+[resource]
+bus/1/name = &"2"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = 6.02
+bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("AudioEffectAmplify_xhq8e")
+bus/1/effect/0/enabled = true
+bus/1/effect/1/effect = SubResource("AudioEffectChorus_8rbq5")
+bus/1/effect/1/enabled = false
+bus/1/effect/2/effect = SubResource("AudioEffectReverb_rhk1q")
+bus/1/effect/2/enabled = false
+bus/1/effect/3/effect = SubResource("AudioEffectDistortion_3jjlq")
+bus/1/effect/3/enabled = true
+bus/1/effect/4/effect = SubResource("AudioEffectPanner_g2802")
+bus/1/effect/4/enabled = true
+bus/1/effect/5/effect = SubResource("AudioEffectDelay_mma2m")
+bus/1/effect/5/enabled = true
+bus/1/effect/6/effect = SubResource("AudioEffectDistortion_iqvjs")
+bus/1/effect/6/enabled = true

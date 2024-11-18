@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="TGExportSettings" load_steps=2 format=3 uid="uid://gh3me1dmrdp7"]
+
+[ext_resource type="Script" path="res://addons/thegates_export/settings/export_settings.gd" id="1_4i6s3"]
+
+[resource]
+script = ExtResource("1_4i6s3")
+title = "Black Jack"
+description = "[color=green] [font_size=28]A NEW LOOK AT BLACKJACK[/font_size] [/color]  [p][/p] [p][/p] [color=red][font_size=32]Rules:[/font_size][/color]  [p][/p] - You will have to get a higher number than the bot number  without going over 21 or you will lose pretty simple. [p][/p] [p][/p] -  Press enter or click  the button to stand to challenge the bot. [p][/p]  [p][/p] - When you run out of cards press reset. [p][/p] [p][/p] - Unbox  rare cards"
+image = "res://image (1).png"
+export_folder = "C:/cooper/godot projects/exports/card game linux"

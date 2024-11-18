@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://cpnlkmbufrin0"]
+
+[ext_resource type="Texture2D" uid="uid://da5vakas3dxkx" path="res://assets/double rare (2).png" id="1_dr5wn"]
+
+[sub_resource type="Gradient" id="Gradient_410gs"]
+offsets = PackedFloat32Array(0, 0.303279, 0.836066, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 0.909804, 0.909804, 0.909804, 0, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_kp6tl"]
+gradient = SubResource("Gradient_410gs")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_qo03t"]
+particle_flag_disable_z = true
+emission_shape_scale = Vector3(100, 1, 100)
+emission_shape = 1
+emission_sphere_radius = 1.0
+gravity = Vector3(0, -100, 0)
+scale_min = 0.0
+scale_max = 0.05
+color_ramp = SubResource("GradientTexture1D_kp6tl")
+
+[node name="GPUParticles2D" type="GPUParticles2D"]
+process_material = SubResource("ParticleProcessMaterial_qo03t")
+texture = ExtResource("1_dr5wn")

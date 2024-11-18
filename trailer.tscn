@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://dangejfiexoj0"]
+
+[ext_resource type="Script" path="res://trailer.gd" id="1_6xkrc"]
+[ext_resource type="PackedScene" uid="uid://7ugpe8qyd18" path="res://card packs/King.tscn" id="1_sevor"]
+[ext_resource type="Shader" path="res://shaders/background.gdshader" id="3_tniow"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3s6r7"]
+shader = ExtResource("3_tniow")
+shader_parameter/OCTAVE = 6
+shader_parameter/mulscale = 26.21
+shader_parameter/height = 0.6
+shader_parameter/tide = 0.03
+shader_parameter/foamthickness = 0.1
+shader_parameter/timescale = 1.475
+shader_parameter/waterdeep = 13.605
+shader_parameter/WATER_COL = Vector4(0.04, -0.03, 0.88, 1)
+shader_parameter/WATER2_COL = Vector4(0.04, 0.35, 0.78, 1)
+shader_parameter/FOAM_COL = Vector4(0.8125, 0.9609, 0.9648, 1)
+
+[node name="trailer" type="Node2D"]
+script = ExtResource("1_6xkrc")
+
+[node name="Node2D" type="Node2D" parent="."]
+visible = false
+position = Vector2(423, 124)
+
+[node name="King CardPack" parent="Node2D" instance=ExtResource("1_sevor")]
+scale = Vector2(3.19, 3.19)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_3s6r7")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.14902, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.180392, 0, 0.901961)

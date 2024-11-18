@@ -1,0 +1,157 @@
+[gd_scene load_steps=13 format=3 uid="uid://bs2vgjwuarxm5"]
+
+[ext_resource type="FontFile" uid="uid://dvyd0s44dolrv" path="res://pixeboy-font/Pixeboy-z8XGD.ttf" id="1_og0xw"]
+[ext_resource type="Script" path="res://example/example__card_ui.gd" id="1_uohi1"]
+[ext_resource type="Texture2D" uid="uid://ben7qqx34vpkq" path="res://assets/card_back.png" id="2_4ri8g"]
+[ext_resource type="Texture2D" uid="uid://dp7k4aq6freb1" path="res://assets/card_clubs_02.png" id="3_m3t1w"]
+[ext_resource type="Shader" path="res://example/special card.gdshader" id="4_klvcd"]
+
+[sub_resource type="Theme" id="Theme_ws726"]
+default_font = ExtResource("1_og0xw")
+default_font_size = 20
+
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_eyp35"]
+polygon = PackedVector2Array(0, 0, 0, 240, 168, 240, 168, 0)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_070to"]
+shader = ExtResource("4_klvcd")
+shader_parameter/shine_color = Vector4(1, 1, 1, 0.41)
+shader_parameter/shine_progress = 0.0
+shader_parameter/shine_size = 0.1
+shader_parameter/shine_angle = 45.0
+
+[sub_resource type="Animation" id="Animation_uf4yh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Frontface:material:shader_parameter/shine_progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Frontface:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_bmdxx"]
+resource_name = "move"
+length = 1.763
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Frontface:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 1.763),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0610865, 0.0, -0.0523599]
+}
+
+[sub_resource type="Animation" id="Animation_47m4u"]
+resource_name = "shine"
+length = 2.0745
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Frontface:material:shader_parameter/shine_progress")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xe61h"]
+_data = {
+"RESET": SubResource("Animation_uf4yh"),
+"move": SubResource("Animation_bmdxx"),
+"shine": SubResource("Animation_47m4u")
+}
+
+[node name="ExampleCardUI" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 168.0
+offset_bottom = 240.0
+theme = SubResource("Theme_ws726")
+script = ExtResource("1_uohi1")
+
+[node name="Backface" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_4ri8g")
+
+[node name="Label" type="Label" parent="Backface"]
+visible = false
+layout_mode = 0
+offset_left = 18.0
+offset_top = 219.0
+offset_right = 214.0
+offset_bottom = 268.0
+rotation = -1.57058
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 3
+text = "S i m p l e C a r d P i l e U I"
+horizontal_alignment = 1
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Backface"]
+occluder = SubResource("OccluderPolygon2D_eyp35")
+
+[node name="Frontface" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_070to")
+layout_mode = 0
+offset_right = 168.0
+offset_bottom = 240.0
+pivot_offset = Vector2(83.31, 119.08)
+texture = ExtResource("3_m3t1w")
+
+[node name="Label" type="Label" parent="Frontface"]
+visible = false
+layout_mode = 0
+offset_left = 16.0
+offset_top = 206.0
+offset_right = 149.0
+offset_bottom = 229.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 25
+text = "Nice name"
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="Frontface"]
+occluder = SubResource("OccluderPolygon2D_eyp35")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xe61h")
+}
+autoplay = "shine"
+
+[node name="move" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_xe61h")
+}
+autoplay = "move"

@@ -1,0 +1,124 @@
+[gd_scene load_steps=8 format=3 uid="uid://dgygkbtm0burn"]
+
+[ext_resource type="FontFile" uid="uid://dvyd0s44dolrv" path="res://pixeboy-font/Pixeboy-z8XGD.ttf" id="1_2ar5g"]
+[ext_resource type="Script" path="res://addons/quiver_leaderboards/leaderboard_ui.gd" id="1_3mlof"]
+[ext_resource type="Shader" path="res://shaders/background.gdshader" id="3_tlqjx"]
+
+[sub_resource type="Theme" id="Theme_oi8xb"]
+default_font = ExtResource("1_2ar5g")
+default_font_size = 60
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tpplr"]
+shader = ExtResource("3_tlqjx")
+shader_parameter/OCTAVE = 6
+shader_parameter/mulscale = 26.21
+shader_parameter/height = 0.6
+shader_parameter/tide = 0.03
+shader_parameter/foamthickness = 0.1
+shader_parameter/timescale = 1.475
+shader_parameter/waterdeep = 13.605
+shader_parameter/WATER_COL = Vector4(0.04, -0.03, 0.88, 1)
+shader_parameter/WATER2_COL = Vector4(0.04, 0.35, 0.78, 1)
+shader_parameter/FOAM_COL = Vector4(0.8125, 0.9609, 0.9648, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mmnjs"]
+bg_color = Color(0, 0, 0, 0.164706)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m7tpi"]
+bg_color = Color(0, 0, 0, 0.517647)
+
+[node name="LeaderboardUI" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_vertical = 3
+theme = SubResource("Theme_oi8xb")
+script = ExtResource("1_3mlof")
+leaderboard_id = "blackjackmodded-black-jack-modd-vyOu"
+score_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_tpplr")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.14902, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.180392, 0, 0.901961)
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_mmnjs")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="TitleLabel" type="Label" parent="PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"HeaderLarge"
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.247059)
+theme_override_constants/shadow_offset_x = 10
+text = "BlackJack modded 
+Leaderboard"
+horizontal_alignment = 1
+
+[node name="Nav" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+alignment = 1
+
+[node name="PrevButton" type="Button" parent="PanelContainer/VBoxContainer/Nav"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = " < "
+
+[node name="ScoresLabel" type="Label" parent="PanelContainer/VBoxContainer/Nav"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_type_variation = &"HeaderMedium"
+text = "Scores"
+horizontal_alignment = 1
+
+[node name="NextButton" type="Button" parent="PanelContainer/VBoxContainer/Nav"]
+unique_name_in_owner = true
+layout_mode = 2
+disabled = true
+text = " > "
+
+[node name="ScoreList" type="Tree" parent="PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_m7tpi")
+columns = 3
+column_titles_visible = true
+allow_search = false
+hide_folding = true
+hide_root = true
+select_mode = 1
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Nav/PrevButton" to="." method="_on_prev_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Nav/NextButton" to="." method="_on_next_button_pressed"]

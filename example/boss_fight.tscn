@@ -1,0 +1,755 @@
+[gd_scene load_steps=43 format=3 uid="uid://cy23nsnpf4fa2"]
+
+[ext_resource type="Script" path="res://example/example.gd" id="1_bcelr"]
+[ext_resource type="Script" path="res://addons/simple_card_pile_ui/card_pile_ui.gd" id="2_02m2i"]
+[ext_resource type="PackedScene" uid="uid://bs2vgjwuarxm5" path="res://example/example__card_ui.tscn" id="3_ychju"]
+[ext_resource type="Script" path="res://example/ability.gd" id="4_wbg80"]
+[ext_resource type="FontFile" uid="uid://dvyd0s44dolrv" path="res://pixeboy-font/Pixeboy-z8XGD.ttf" id="5_d3v8n"]
+[ext_resource type="Script" path="res://example/Buttons.gd" id="6_r5y3k"]
+[ext_resource type="Script" path="res://addons/simple_card_pile_ui/card_pile_ui_debugger.gd" id="7_6ymfv"]
+[ext_resource type="Script" path="res://example/CardCountBoss.gd" id="8_bnv7c"]
+[ext_resource type="Script" path="res://example/BetNum.gd" id="9_tqbu4"]
+[ext_resource type="Script" path="res://example/BankNum.gd" id="10_1t782"]
+[ext_resource type="Script" path="res://addons/post_processing/node/post_process.gd" id="11_qq7vd"]
+[ext_resource type="Texture2D" uid="uid://rmp04886ha0c" path="res://assets/1.png" id="11_w4mjs"]
+[ext_resource type="Script" path="res://example/BossHealth.gd" id="12_2udji"]
+[ext_resource type="Script" path="res://addons/post_processing/resource/post_processing_configuration.gd" id="12_mcas7"]
+[ext_resource type="AudioStream" uid="uid://hs26wvmvf5yx" path="res://sounds/mixkit-dreaming-big-31.mp3" id="13_5g72c"]
+[ext_resource type="Script" path="res://example/Selfhealth.gd" id="13_xfuk1"]
+[ext_resource type="AudioStream" uid="uid://8epugi1pai62" path="res://sounds/217501__vkproduktion__shuffling-cards-02.mp3" id="14_uomd4"]
+[ext_resource type="AudioStream" uid="uid://u84llgnkmhmb" path="res://sounds/276123__littlerobotsoundfactory__coins_single_44.mp3" id="15_j6h0h"]
+[ext_resource type="AudioStream" uid="uid://dkvvlf7j78gxv" path="res://sounds/699518__valenspire__coin_drop_23.mp3" id="16_j1nch"]
+[ext_resource type="AudioStream" uid="uid://bnndgumbrrx73" path="res://sounds/703543__yoshicakes77__win.mp3" id="17_qxbm5"]
+[ext_resource type="AudioStream" uid="uid://bgpanbfe0gv7t" path="res://sounds/253174__suntemple__retro-you-lose-sfx.mp3" id="18_bc8rn"]
+[ext_resource type="Shader" path="res://shaders/background.gdshader" id="19_wrcn7"]
+
+[sub_resource type="Curve" id="Curve_ayyaa"]
+min_value = -15.0
+max_value = 15.0
+_data = [Vector2(0, -15), 0.0, 30.0, 0, 1, Vector2(1, 15), 30.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_afhc1"]
+max_value = 50.0
+_data = [Vector2(0, 0), 0.0, 60.0, 0, 0, Vector2(0.5, 40), 0.0, 0.0, 0, 0, Vector2(1, 0), -60.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tlctj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gescc"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qtkcy"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+draw_center = false
+border_width_left = 6
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_74r2n"]
+color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ahlck"]
+color = Color(0, 0, 0, 0)
+
+[sub_resource type="Theme" id="Theme_oqbkv"]
+Button/font_sizes/font_size = 12
+RichTextLabel/font_sizes/normal_font_size = 12
+
+[sub_resource type="Theme" id="Theme_5svgs"]
+default_font = ExtResource("5_d3v8n")
+default_font_size = 12
+
+[sub_resource type="Animation" id="Animation_8bdg4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../VBoxContainer/BankNum:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../end:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Label:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_i7u01"]
+resource_name = "bounce"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.335, 1.335), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.305433, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ah3rb"]
+resource_name = "bounce 2"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../VBoxContainer/BankNum:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 0.148651, 2.2974),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.47, 1.47), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_c0bwd"]
+resource_name = "bounce 3"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../end:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 0.210224, 4),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.165, 1.165), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8o1jt"]
+_data = {
+"RESET": SubResource("Animation_8bdg4"),
+"bounce": SubResource("Animation_i7u01"),
+"bounce 2": SubResource("Animation_ah3rb"),
+"bounce 3": SubResource("Animation_c0bwd")
+}
+
+[sub_resource type="Theme" id="Theme_t8p8a"]
+default_font = ExtResource("5_d3v8n")
+default_font_size = 45
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_red3a"]
+bg_color = Color(0, 0, 0, 0.584314)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0, 0, 0.839216)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+shadow_size = 5
+shadow_offset = Vector2(11.35, 9.12)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a7heb"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_abssa"]
+color = Color(1, 1, 1, 1)
+thickness = 6
+
+[sub_resource type="Resource" id="Resource_5snt6"]
+script = ExtResource("12_mcas7")
+reload = false
+ASCII = false
+ASCIISize = Vector2(90000, 90000)
+ChromaticAberration = false
+StrenghtCA = 0.2
+Blur = false
+L_O_D = 1.0
+FishEye = false
+FishEyeAspect = 1.0
+FishEyeDistortion = 1.0
+FishEyeRadius = 1.0
+FishEyeAlpha = 1.0
+FishEyeCrop = 1.0
+FishEyeCropColor = Color(0, 0, 0, 1)
+Vignette = false
+VignetteIntensity = 0.2
+VignetteOpacity = 0.026
+VignetteR_G_B = Color(0, 0, 0, 1)
+Glitch = false
+GlitchRange = 0.03
+GlitchNoiseQuality = 35.3
+GlitchIntenity = -0.206
+GlitchOffset = 0.01
+GlitchColorOffset = 1.3
+Outline = false
+OutlineColor = Color(0, 0, 0, 1)
+OutlineThreshold = 0.0
+OutlineBlend = 0.01
+ScreenShake = false
+ScreenShakePower = 0.1
+AnalogMonitor = false
+AnalogMonitorResolution = Vector2(1, 1)
+Grain = false
+GrainPower = 150
+CircularWaves = false
+CircularWavesAmplitude = 2.0
+CircularWavesFrequency = 12.69
+CircularWavesRippleRate = 9.2
+SpeedLines = false
+SpeedLinesColor = Color(1, 1, 1, 1)
+SpeedLinesCount = 2
+SpeedLineDensity = 0.072
+SpeedLineSpeed = 20
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ukyk7"]
+shader = ExtResource("19_wrcn7")
+shader_parameter/OCTAVE = 6
+shader_parameter/mulscale = 5.0
+shader_parameter/height = 0.6
+shader_parameter/tide = 0.1
+shader_parameter/foamthickness = 0.1
+shader_parameter/timescale = 1.0
+shader_parameter/waterdeep = 0.3
+shader_parameter/WATER_COL = Vector4(0.04, 0.38, 0.88, 1)
+shader_parameter/WATER2_COL = Vector4(0.04, 0.35, 0.78, 1)
+shader_parameter/FOAM_COL = Vector4(0.8125, 0.9609, 0.9648, 1)
+
+[node name="Boss Fight" type="Node2D"]
+position = Vector2(534, 282)
+script = ExtResource("1_bcelr")
+
+[node name="CardPileUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("2_02m2i")
+json_card_database_path = "res://example/example__card_database.json"
+json_card_collection_path = "res://example/example__card_collection.json"
+extended_card_ui = ExtResource("3_ychju")
+draw_pile_layout = 2
+max_hand_size = 7
+hand_rotation_curve = SubResource("Curve_ayyaa")
+hand_vertical_curve = SubResource("Curve_afhc1")
+
+[node name="ability" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_wbg80")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(714, 483)
+zoom = Vector2(0.72, 0.72)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="exit" type="Button" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -41.0
+offset_bottom = 49.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("5_d3v8n")
+theme_override_font_sizes/font_size = 71
+text = "X"
+flat = true
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_tlctj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_gescc")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Stand" type="Button" parent="CanvasLayer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_d3v8n")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/normal = SubResource("StyleBoxFlat_qtkcy")
+theme_override_styles/pressed = SubResource("StyleBoxLine_74r2n")
+theme_override_styles/focus = SubResource("StyleBoxLine_74r2n")
+text = "stand"
+flat = true
+
+[node name="ResetButton" type="Button" parent="CanvasLayer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("5_d3v8n")
+theme_override_font_sizes/font_size = 76
+theme_override_styles/normal = SubResource("StyleBoxFlat_qtkcy")
+theme_override_styles/pressed = SubResource("StyleBoxLine_ahlck")
+theme_override_styles/focus = SubResource("StyleBoxLine_ahlck")
+text = "Reset"
+flat = true
+
+[node name="end" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -42.0
+offset_top = 8.0
+offset_right = 42.0
+offset_bottom = 48.0
+grow_horizontal = 2
+pivot_offset = Vector2(84.11, 17.245)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.270588)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/shadow_outline_size = -5
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("5_d3v8n")
+theme_override_font_sizes/font_size = 60
+text = "winner"
+
+[node name="Buttons" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+theme = SubResource("Theme_oqbkv")
+script = ExtResource("6_r5y3k")
+
+[node name="HBoxContainer" type="GridContainer" parent="CanvasLayer/Buttons"]
+layout_mode = 2
+offset_left = 8.0
+offset_top = 9.0
+offset_right = 452.0
+offset_bottom = 250.0
+columns = 2
+metadata/_edit_group_ = true
+
+[node name="DrawButton" type="Button" parent="CanvasLayer/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Draw"
+
+[node name="Draw3Button" type="Button" parent="CanvasLayer/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Draw 3"
+
+[node name="SortButton" type="Button" parent="CanvasLayer/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Sort Hand"
+
+[node name="DiscardRandomButton" type="Button" parent="CanvasLayer/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Discard Random"
+
+[node name="DiscardHandButton" type="Button" parent="CanvasLayer/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Discard Hand"
+
+[node name="AddJokerToHandButton" type="Button" parent="CanvasLayer/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Add Joker To Hand"
+
+[node name="AddJokerToDiscardButton" type="Button" parent="CanvasLayer/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Add Joker To Discard"
+
+[node name="RandomDiscardToHandButton" type="Button" parent="CanvasLayer/Buttons/HBoxContainer"]
+layout_mode = 2
+text = "Return Random Discard
+To Hand"
+
+[node name="AddJokerToDropzonesButton" type="Button" parent="CanvasLayer/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Add Joker To Dropzones"
+
+[node name="MoveFromDropzoneToPileButton" type="Button" parent="CanvasLayer/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Discard Top Card
+of all Dropzones"
+
+[node name="MoveClubToDiamonds" type="Button" parent="CanvasLayer/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Move Top Club Dropzone
+to Diamonds"
+
+[node name="RemoveRandCardInHandFromGame" type="Button" parent="CanvasLayer/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Remove Random Card
+In Hand From Game"
+
+[node name="CardPileUIDebugger" type="RichTextLabel" parent="CanvasLayer/Buttons" node_paths=PackedStringArray("card_pile_ui")]
+visible = false
+layout_mode = 2
+offset_left = 8.0
+offset_top = 296.0
+offset_right = 312.0
+offset_bottom = 392.0
+scroll_following = true
+script = ExtResource("7_6ymfv")
+card_pile_ui = NodePath("../../../CardPileUI")
+
+[node name="Store" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Store"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.305882)
+
+[node name="CardCount" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_5svgs")
+script = ExtResource("8_bnv7c")
+
+[node name="Label" type="Label" parent="CanvasLayer/CardCount"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -166.0
+offset_top = -113.0
+offset_right = 176.0
+offset_bottom = -36.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(167.31, 38.74)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.372549)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 10
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("5_d3v8n")
+theme_override_font_sizes/font_size = 86
+text = "1111"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/CardCount"]
+libraries = {
+"": SubResource("AnimationLibrary_8o1jt")
+}
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="CanvasLayer/CardCount"]
+libraries = {
+"": SubResource("AnimationLibrary_8o1jt")
+}
+autoplay = "bounce 3"
+
+[node name="VBoxContainer" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 160.0
+offset_bottom = 178.0
+theme = SubResource("Theme_t8p8a")
+
+[node name="ColorRect" type="Panel" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_red3a")
+
+[node name="Bet" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+offset_top = 20.0
+offset_right = 150.0
+offset_bottom = 47.0
+text = "BETS"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="Control" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+anchors_preset = 0
+offset_top = 51.0
+offset_right = 150.0
+offset_bottom = 86.0
+
+[node name="BetNum" type="Label" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+offset_left = 33.0
+offset_top = 4.0
+offset_right = 117.0
+offset_bottom = 31.0
+text = "1111"
+horizontal_alignment = 1
+script = ExtResource("9_tqbu4")
+
+[node name="+" type="Button" parent="CanvasLayer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+offset_left = 121.0
+offset_right = 150.0
+offset_bottom = 35.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_qtkcy")
+theme_override_styles/focus = SubResource("StyleBoxFlat_a7heb")
+text = "+"
+flat = true
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+offset_top = 90.0
+offset_right = 150.0
+offset_bottom = 106.0
+theme_override_constants/separation = 16
+theme_override_styles/separator = SubResource("StyleBoxLine_abssa")
+
+[node name="Bank" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+offset_top = 110.0
+offset_right = 150.0
+offset_bottom = 137.0
+text = "bank"
+horizontal_alignment = 1
+
+[node name="BankNum" type="Label" parent="CanvasLayer/VBoxContainer"]
+layout_mode = 2
+offset_top = 141.0
+offset_right = 150.0
+offset_bottom = 168.0
+pivot_offset = Vector2(73.475, 11.16)
+text = "1111"
+horizontal_alignment = 1
+script = ExtResource("10_1t782")
+
+[node name="Boss" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="BossHealth" type="TextureProgressBar" parent="CanvasLayer/Boss"]
+custom_minimum_size = Vector2(500, 40)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -730.0
+offset_top = -265.845
+offset_right = 730.0
+offset_bottom = -101.845
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.42, 0.42)
+pivot_offset = Vector2(700, 59.53)
+max_value = 900.0
+value = 900.0
+texture_progress = ExtResource("11_w4mjs")
+script = ExtResource("12_2udji")
+
+[node name="Selfhealth" type="TextureProgressBar" parent="CanvasLayer/Boss"]
+custom_minimum_size = Vector2(500, 40)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -728.0
+offset_top = -212.0
+offset_right = 732.0
+offset_bottom = -48.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.42, 0.42)
+pivot_offset = Vector2(700, 59.53)
+max_value = 500.0
+value = 500.0
+texture_progress = ExtResource("11_w4mjs")
+tint_progress = Color(0, 0, 0, 1)
+script = ExtResource("13_xfuk1")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = -4
+
+[node name="PostProcess" type="CanvasLayer" parent="."]
+script = ExtResource("11_qq7vd")
+configuration = SubResource("Resource_5snt6")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_5g72c")
+volume_db = -12.18
+autoplay = true
+
+[node name="Start" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_uomd4")
+
+[node name="click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_j6h0h")
+pitch_scale = 3.38
+
+[node name="money click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("16_j1nch")
+
+[node name="win" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_qxbm5")
+autoplay = true
+
+[node name="lose" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("18_bc8rn")
+autoplay = true
+
+[node name="PointLight2D" type="DirectionalLight2D" parent="."]
+rotation = -0.785398
+energy = 0.24
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.0352941)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_ukyk7")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -166.0
+offset_top = -106.0
+offset_right = 1618.0
+offset_bottom = 1022.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.14902, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -214.0
+offset_top = -146.0
+offset_right = 1658.0
+offset_bottom = 1038.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.254902, 0, 0.886275)
+
+[node name="Sprite2D" type="ColorRect" parent="."]
+visible = false
+modulate = Color(0, 0.054902, 0, 1)
+offset_left = -89.0
+offset_top = 31.0
+offset_right = 135.0
+offset_bottom = 159.0
+scale = Vector2(7.085, 7.085)
+mouse_filter = 2
+
+[connection signal="card_clicked" from="CardPileUI" to="ability" method="_on_card_pile_ui_card_clicked"]
+[connection signal="pressed" from="CanvasLayer/exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/HBoxContainer/Stand" to="CanvasLayer/CardCount" method="_on_stand_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/HBoxContainer/ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Buttons/HBoxContainer/DrawButton" to="." method="_on_draw_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Buttons/HBoxContainer/Draw3Button" to="." method="_on_draw_3_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Buttons/HBoxContainer/SortButton" to="." method="_on_sort_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Buttons/HBoxContainer/DiscardRandomButton" to="." method="_on_discard_random_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Buttons/HBoxContainer/DiscardHandButton" to="." method="_on_discard_hand_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Buttons/HBoxContainer/AddJokerToHandButton" to="." method="_on_add_joker_to_hand_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Buttons/HBoxContainer/AddJokerToDiscardButton" to="." method="_on_add_joker_to_discard_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Buttons/HBoxContainer/RandomDiscardToHandButton" to="." method="_on_random_discard_to_hand_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Buttons/HBoxContainer/AddJokerToDropzonesButton" to="." method="_on_add_joker_to_dropzones_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Buttons/HBoxContainer/MoveFromDropzoneToPileButton" to="." method="_on_move_from_dropzone_to_pile_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Buttons/HBoxContainer/MoveClubToDiamonds" to="." method="_on_move_club_to_diamonds_pressed"]
+[connection signal="pressed" from="CanvasLayer/Buttons/HBoxContainer/RemoveRandCardInHandFromGame" to="." method="_on_remove_rand_card_in_hand_from_game_pressed"]
+[connection signal="pressed" from="CanvasLayer/VBoxContainer/HBoxContainer/+" to="CanvasLayer/VBoxContainer/HBoxContainer/BetNum" method="plus"]

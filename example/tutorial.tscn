@@ -1,0 +1,1441 @@
+[gd_scene load_steps=82 format=3 uid="uid://d0akc0sm4ws1"]
+
+[ext_resource type="Script" path="res://example/example.gd" id="1_4lm3e"]
+[ext_resource type="Script" path="res://addons/simple_card_pile_ui/card_pile_ui.gd" id="2_s6w4l"]
+[ext_resource type="Script" path="res://example/tutorial stage.gd" id="2_tlwvg"]
+[ext_resource type="PackedScene" uid="uid://bs2vgjwuarxm5" path="res://example/example__card_ui.tscn" id="3_yolva"]
+[ext_resource type="Script" path="res://example/ability.gd" id="4_cf4yj"]
+[ext_resource type="Script" path="res://example/StackCards.gd" id="5_ueak6"]
+[ext_resource type="FontFile" uid="uid://dvyd0s44dolrv" path="res://pixeboy-font/Pixeboy-z8XGD.ttf" id="6_ywkqf"]
+[ext_resource type="Script" path="res://example/CardCount.gd" id="7_dde0p"]
+[ext_resource type="Script" path="res://example/DealersHandValue.gd" id="8_nowq4"]
+[ext_resource type="Script" path="res://example/BetNum.gd" id="9_vp105"]
+[ext_resource type="Script" path="res://example/BankNum.gd" id="10_eex8a"]
+[ext_resource type="Script" path="res://example/BankToBeatNum.gd" id="11_x02tj"]
+[ext_resource type="Script" path="res://example/Level.gd" id="12_s5fco"]
+[ext_resource type="Script" path="res://example/Store.gd" id="13_kky7b"]
+[ext_resource type="Shader" path="res://shaders/background.gdshader" id="14_e4brg"]
+[ext_resource type="PackedScene" uid="uid://7ugpe8qyd18" path="res://card packs/King.tscn" id="15_l5vi8"]
+[ext_resource type="Script" path="res://example/Inventory.gd" id="16_nyn40"]
+[ext_resource type="Script" path="res://example/Buttons.gd" id="17_p7rhp"]
+[ext_resource type="Script" path="res://addons/simple_card_pile_ui/card_pile_ui_debugger.gd" id="18_xlahe"]
+[ext_resource type="Script" path="res://example/SettingsMenu.gd" id="19_ifpq3"]
+[ext_resource type="Script" path="res://example/ItemDescriptions.gd" id="20_fad84"]
+[ext_resource type="Texture2D" uid="uid://dsq3pnwd6kypu" path="res://assets/Reroll.png" id="21_tnwmp"]
+[ext_resource type="Texture2D" uid="uid://rigshgnklsmq" path="res://assets/Spilt.png" id="22_2e3hd"]
+[ext_resource type="Texture2D" uid="uid://gm36l5pmxw2d" path="res://assets/delete card.png" id="23_lwef1"]
+[ext_resource type="Texture2D" uid="uid://65d75aujik7n" path="res://assets/Bust Block.png" id="24_21pv7"]
+[ext_resource type="Texture2D" uid="uid://bp2fudf8t7w6r" path="res://assets/double rare.png" id="25_7dtam"]
+[ext_resource type="Texture2D" uid="uid://c5r1at03k4yf1" path="res://assets/Five Card Charlie.png" id="26_k1bi6"]
+[ext_resource type="Texture2D" uid="uid://dkjwhfc8qd3xq" path="res://assets/Perfect Pair.png" id="27_oru2s"]
+[ext_resource type="Texture2D" uid="uid://dawmx13bo2xxn" path="res://assets/Dealer Reveal.png" id="28_x0y64"]
+[ext_resource type="Texture2D" uid="uid://c1ebew4il6y1p" path="res://assets/Lucky Streak.png" id="29_4bsjt"]
+[ext_resource type="Texture2D" uid="uid://gsi73pah0nej" path="res://assets/settings.png" id="30_6r40n"]
+[ext_resource type="Texture2D" uid="uid://c2lgprvcnj01r" path="res://assets/money.png" id="31_4t0mk"]
+[ext_resource type="Script" path="res://addons/post_processing/node/post_process.gd" id="32_xnp1a"]
+[ext_resource type="Script" path="res://addons/post_processing/resource/post_processing_configuration.gd" id="33_7lqd5"]
+[ext_resource type="AudioStream" uid="uid://hs26wvmvf5yx" path="res://sounds/mixkit-dreaming-big-31.mp3" id="34_mw7qm"]
+[ext_resource type="AudioStream" uid="uid://8epugi1pai62" path="res://sounds/217501__vkproduktion__shuffling-cards-02.mp3" id="35_yu0up"]
+[ext_resource type="AudioStream" uid="uid://u84llgnkmhmb" path="res://sounds/276123__littlerobotsoundfactory__coins_single_44.mp3" id="36_xs2yf"]
+[ext_resource type="AudioStream" uid="uid://b8sglanuui643" path="res://sounds/518888__ash_rez__1up-video-game.mp3" id="37_3r8mw"]
+[ext_resource type="AudioStream" uid="uid://b7pr6a515qqsq" path="res://sounds/352654__foolboymedia__piano-notification-5b.mp3" id="38_tbnyy"]
+[ext_resource type="AudioStream" uid="uid://dm5v0g5ow6rg4" path="res://sounds/235556__simosco__paper-card-crinkling.mp3" id="39_bc82v"]
+[ext_resource type="AudioStream" uid="uid://cfca1v1l330i7" path="res://sounds/253595__thoribass__notification1-freesound.mp3" id="40_emjkm"]
+[ext_resource type="AudioStream" uid="uid://dkvvlf7j78gxv" path="res://sounds/699518__valenspire__coin_drop_23.mp3" id="41_x3x8p"]
+[ext_resource type="AudioStream" uid="uid://bnndgumbrrx73" path="res://sounds/703543__yoshicakes77__win.mp3" id="42_jmem0"]
+[ext_resource type="AudioStream" uid="uid://bgpanbfe0gv7t" path="res://sounds/253174__suntemple__retro-you-lose-sfx.mp3" id="43_cnxkr"]
+
+[sub_resource type="Curve" id="Curve_ayyaa"]
+min_value = -15.0
+max_value = 15.0
+_data = [Vector2(0, -15), 0.0, 30.0, 0, 1, Vector2(1, 15), 30.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_afhc1"]
+max_value = 50.0
+_data = [Vector2(0, 0), 0.0, 60.0, 0, 0, Vector2(0.5, 40), 0.0, 0.0, 0, 0, Vector2(1, 0), -60.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l8b52"]
+bg_color = Color(0, 0, 0, 0.215686)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tlctj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gescc"]
+bg_color = Color(0, 0, 0, 0.2)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_74r2n"]
+color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ahlck"]
+color = Color(0, 0, 0, 0)
+
+[sub_resource type="Theme" id="Theme_5svgs"]
+default_font = ExtResource("6_ywkqf")
+default_font_size = 12
+
+[sub_resource type="Animation" id="Animation_8bdg4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HBoxContainer/Label:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../bets/MarginContainer/VBoxContainer/BankNum:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../end:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("HBoxContainer/Label:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_i7u01"]
+resource_name = "bounce"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HBoxContainer/Label:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.335, 1.335), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HBoxContainer/Label:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.305433, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_ah3rb"]
+resource_name = "bounce 2"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../bets/MarginContainer/VBoxContainer/BankNum:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 0.148651, 2.2974),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.47, 1.47), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_c0bwd"]
+resource_name = "bounce 3"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../end:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 0.210224, 4),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.165, 1.165), Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8o1jt"]
+_data = {
+"RESET": SubResource("Animation_8bdg4"),
+"bounce": SubResource("Animation_i7u01"),
+"bounce 2": SubResource("Animation_ah3rb"),
+"bounce 3": SubResource("Animation_c0bwd")
+}
+
+[sub_resource type="Theme" id="Theme_t8p8a"]
+default_font = ExtResource("6_ywkqf")
+default_font_size = 45
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gmxfq"]
+bg_color = Color(0, 0, 0, 0.231373)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qtkcy"]
+bg_color = Color(0, 0, 0, 1)
+draw_center = false
+border_width_left = 6
+border_color = Color(0.8, 0.8, 0.8, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a7heb"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_red3a"]
+bg_color = Color(0, 0, 0, 0.215686)
+border_color = Color(0, 0, 0, 0.839216)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_abssa"]
+color = Color(1, 1, 1, 1)
+thickness = 6
+
+[sub_resource type="Theme" id="Theme_ge5bk"]
+default_font = ExtResource("6_ywkqf")
+default_font_size = 55
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ukyk7"]
+shader = ExtResource("14_e4brg")
+shader_parameter/OCTAVE = 6
+shader_parameter/mulscale = 26.21
+shader_parameter/height = 0.6
+shader_parameter/tide = 0.03
+shader_parameter/foamthickness = 0.1
+shader_parameter/timescale = 1.475
+shader_parameter/waterdeep = 13.605
+shader_parameter/WATER_COL = Vector4(0.04, -0.03, 0.88, 1)
+shader_parameter/WATER2_COL = Vector4(0.04, 0.35, 0.78, 1)
+shader_parameter/FOAM_COL = Vector4(0.8125, 0.9609, 0.9648, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2ylto"]
+bg_color = Color(0, 0, 0, 0.266667)
+corner_radius_top_left = 55
+corner_radius_top_right = 55
+corner_radius_bottom_right = 55
+corner_radius_bottom_left = 55
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_50jxv"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_oqbkv"]
+Button/font_sizes/font_size = 12
+RichTextLabel/font_sizes/normal_font_size = 12
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_imk1u"]
+color = Color(0, 0, 0, 0)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x8yqm"]
+
+[sub_resource type="Theme" id="Theme_ixt8c"]
+default_font = ExtResource("6_ywkqf")
+default_font_size = 50
+CheckBox/styles/focus = SubResource("StyleBoxLine_imk1u")
+CheckBox/styles/hover_pressed = SubResource("StyleBoxLine_imk1u")
+CheckBox/styles/normal = SubResource("StyleBoxLine_imk1u")
+CheckBox/styles/pressed = SubResource("StyleBoxLine_imk1u")
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(1, 1, 1, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 0.298039)
+Label/constants/line_spacing = 3
+Label/constants/outline_size = 0
+Label/constants/shadow_offset_x = 6
+Label/constants/shadow_offset_y = 4
+Label/constants/shadow_outline_size = 1
+Label/styles/normal = SubResource("StyleBoxEmpty_x8yqm")
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_81cmb"]
+color = Color(1, 1, 1, 1)
+thickness = 56
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_xhw47"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_p6rr2"]
+color = Color(1, 1, 1, 1)
+thickness = 6
+vertical = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dpwvn"]
+bg_color = Color(0, 0, 0, 0.298039)
+
+[sub_resource type="Theme" id="Theme_f0vhe"]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_dpwvn")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k7sl0"]
+
+[sub_resource type="Theme" id="Theme_qtc2h"]
+default_font = ExtResource("6_ywkqf")
+default_font_size = 60
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_d2cih"]
+color = Color(1, 1, 1, 1)
+thickness = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eason"]
+bg_color = Color(0, 0, 0, 0.247059)
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="Resource" id="Resource_5snt6"]
+script = ExtResource("33_7lqd5")
+reload = false
+ASCII = false
+ASCIISize = Vector2(90000, 90000)
+ChromaticAberration = false
+StrenghtCA = 0.2
+Blur = false
+L_O_D = 1.0
+FishEye = false
+FishEyeAspect = 1.0
+FishEyeDistortion = 1.0
+FishEyeRadius = 1.0
+FishEyeAlpha = 1.0
+FishEyeCrop = 1.0
+FishEyeCropColor = Color(0, 0, 0, 1)
+Vignette = false
+VignetteIntensity = 0.2
+VignetteOpacity = 0.026
+VignetteR_G_B = Color(0, 0, 0, 1)
+Glitch = false
+GlitchRange = 0.03
+GlitchNoiseQuality = 35.3
+GlitchIntenity = -0.206
+GlitchOffset = 0.01
+GlitchColorOffset = 1.3
+Outline = false
+OutlineColor = Color(0, 0, 0, 1)
+OutlineThreshold = 0.0
+OutlineBlend = 0.01
+ScreenShake = false
+ScreenShakePower = 0.1
+AnalogMonitor = false
+AnalogMonitorResolution = Vector2(1, 1)
+Grain = false
+GrainPower = 150
+CircularWaves = false
+CircularWavesAmplitude = 2.0
+CircularWavesFrequency = 12.69
+CircularWavesRippleRate = 9.2
+SpeedLines = false
+SpeedLinesColor = Color(1, 1, 1, 1)
+SpeedLinesCount = 2
+SpeedLineDensity = 0.072
+SpeedLineSpeed = 20
+
+[node name="Example" type="Node2D"]
+position = Vector2(534, 282)
+script = ExtResource("1_4lm3e")
+
+[node name="tutorial stage" type="Node2D" parent="."]
+script = ExtResource("2_tlwvg")
+
+[node name="CardPileUI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("2_s6w4l")
+json_card_database_path = "res://example/example__card_database.json"
+json_card_collection_path = "res://example/example__card_collection.json"
+extended_card_ui = ExtResource("3_yolva")
+hand_pile_position = Vector2(630, 612.865)
+draw_pile_layout = 2
+max_hand_size = 7
+drag_when_clicked = false
+hand_rotation_curve = SubResource("Curve_ayyaa")
+hand_vertical_curve = SubResource("Curve_afhc1")
+
+[node name="ability" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("4_cf4yj")
+
+[node name="Main" type="Camera2D" parent="."]
+position = Vector2(714, 483)
+zoom = Vector2(0.72, 0.72)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="StackCards" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -48.0
+offset_top = 56.0
+offset_right = 52.0
+offset_bottom = 208.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_l8b52")
+script = ExtResource("5_ueak6")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/StackCards"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/StackCards/MarginContainer"]
+layout_mode = 2
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_tlctj")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_right = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -408.0
+offset_top = -72.0
+offset_right = 411.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_gescc")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 10
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Stand" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_ywkqf")
+theme_override_font_sizes/font_size = 80
+theme_override_styles/pressed = SubResource("StyleBoxLine_74r2n")
+theme_override_styles/focus = SubResource("StyleBoxLine_74r2n")
+text = "stand"
+
+[node name="Surrender" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("6_ywkqf")
+theme_override_font_sizes/font_size = 76
+theme_override_styles/pressed = SubResource("StyleBoxLine_ahlck")
+theme_override_styles/focus = SubResource("StyleBoxLine_ahlck")
+text = "Surrender"
+
+[node name="ResetButton" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("6_ywkqf")
+theme_override_font_sizes/font_size = 76
+theme_override_styles/pressed = SubResource("StyleBoxLine_ahlck")
+theme_override_styles/focus = SubResource("StyleBoxLine_ahlck")
+text = "Reset"
+
+[node name="end" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -42.0
+offset_top = 8.0
+offset_right = 42.0
+offset_bottom = 48.0
+grow_horizontal = 2
+pivot_offset = Vector2(84.11, 17.245)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.270588)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/shadow_outline_size = -5
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("6_ywkqf")
+theme_override_font_sizes/font_size = 60
+text = "winner"
+
+[node name="CardCount" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_5svgs")
+script = ExtResource("7_dde0p")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/CardCount"]
+libraries = {
+"": SubResource("AnimationLibrary_8o1jt")
+}
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="CanvasLayer/CardCount"]
+libraries = {
+"": SubResource("AnimationLibrary_8o1jt")
+}
+autoplay = "bounce 3"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/CardCount"]
+layout_mode = 0
+offset_left = -103.0
+offset_top = -110.945
+offset_right = 107.0
+offset_bottom = -58.945
+pivot_offset = Vector2(104.69, 24.59)
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/CardCount/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.372549)
+theme_override_constants/shadow_offset_x = 5
+theme_override_constants/shadow_offset_y = 10
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("6_ywkqf")
+theme_override_font_sizes/font_size = 86
+text = "21"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DealersHandValue" type="Label" parent="CanvasLayer/CardCount/HBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.45098)
+theme_override_constants/shadow_offset_x = 10
+theme_override_constants/shadow_offset_y = 7
+theme_override_fonts/font = ExtResource("6_ywkqf")
+theme_override_font_sizes/font_size = 89
+text = "/21"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_nowq4")
+
+[node name="bets" type="PanelContainer" parent="CanvasLayer"]
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 154.0
+offset_bottom = 288.0
+theme = SubResource("Theme_t8p8a")
+theme_override_styles/panel = SubResource("StyleBoxFlat_gmxfq")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/bets"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/bets/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="Bet" type="Label" parent="CanvasLayer/bets/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "BETS"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/bets/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="BetNum" type="Label" parent="CanvasLayer/bets/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "1111"
+horizontal_alignment = 1
+script = ExtResource("9_vp105")
+
+[node name="+" type="Button" parent="CanvasLayer/bets/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_qtkcy")
+theme_override_styles/focus = SubResource("StyleBoxFlat_a7heb")
+action_mode = 0
+text = "+"
+flat = true
+
+[node name="ColorRect" type="Panel" parent="CanvasLayer/bets/MarginContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_red3a")
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/bets/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+theme_override_styles/separator = SubResource("StyleBoxLine_abssa")
+
+[node name="Bank" type="Label" parent="CanvasLayer/bets/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "bank"
+horizontal_alignment = 1
+
+[node name="BankNum" type="Label" parent="CanvasLayer/bets/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "1111"
+horizontal_alignment = 1
+script = ExtResource("10_eex8a")
+
+[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/bets/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+theme_override_styles/separator = SubResource("StyleBoxLine_abssa")
+
+[node name="BankToBeat" type="Label" parent="CanvasLayer/bets/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "To Beat"
+horizontal_alignment = 1
+
+[node name="BankToBeatNum" type="Label" parent="CanvasLayer/bets/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "1111"
+horizontal_alignment = 1
+script = ExtResource("11_x02tj")
+
+[node name="Level" type="Label" parent="CanvasLayer/bets/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "Lv2"
+horizontal_alignment = 1
+script = ExtResource("12_s5fco")
+
+[node name="exit" type="Button" parent="CanvasLayer"]
+visible = false
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -18.0
+offset_bottom = 31.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("6_ywkqf")
+theme_override_font_sizes/font_size = 71
+disabled = true
+text = "X"
+flat = true
+
+[node name="Store" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = SubResource("Theme_ge5bk")
+script = ExtResource("13_kky7b")
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/Store"]
+material = SubResource("ShaderMaterial_ukyk7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.14902, 0, 1)
+
+[node name="ColorRect4" type="ColorRect" parent="CanvasLayer/Store"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.254902, 0, 0.886275)
+
+[node name="Store" type="PanelContainer" parent="CanvasLayer/Store"]
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 9.0
+offset_right = -186.0
+offset_bottom = -321.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Store/Store"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_2ylto")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Store/Store"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Store/Store/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="CanvasLayer/Store/Store/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="VBoxContainer" type="HBoxContainer" parent="CanvasLayer/Store/Store/MarginContainer/ScrollContainer/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="King CardPack" parent="CanvasLayer/Store/Store/MarginContainer/ScrollContainer/VBoxContainer2/VBoxContainer" instance=ExtResource("15_l5vi8")]
+layout_mode = 2
+
+[node name="King CardPack2" parent="CanvasLayer/Store/Store/MarginContainer/ScrollContainer/VBoxContainer2/VBoxContainer" instance=ExtResource("15_l5vi8")]
+layout_mode = 2
+
+[node name="King CardPack3" parent="CanvasLayer/Store/Store/MarginContainer/ScrollContainer/VBoxContainer2/VBoxContainer" instance=ExtResource("15_l5vi8")]
+layout_mode = 2
+
+[node name="King CardPack4" parent="CanvasLayer/Store/Store/MarginContainer/ScrollContainer/VBoxContainer2/VBoxContainer" instance=ExtResource("15_l5vi8")]
+layout_mode = 2
+
+[node name="King CardPack5" parent="CanvasLayer/Store/Store/MarginContainer/ScrollContainer/VBoxContainer2/VBoxContainer" instance=ExtResource("15_l5vi8")]
+layout_mode = 2
+
+[node name="King CardPack6" parent="CanvasLayer/Store/Store/MarginContainer/ScrollContainer/VBoxContainer2/VBoxContainer" instance=ExtResource("15_l5vi8")]
+layout_mode = 2
+
+[node name="King CardPack7" parent="CanvasLayer/Store/Store/MarginContainer/ScrollContainer/VBoxContainer2/VBoxContainer" instance=ExtResource("15_l5vi8")]
+layout_mode = 2
+
+[node name="King CardPack8" parent="CanvasLayer/Store/Store/MarginContainer/ScrollContainer/VBoxContainer2/VBoxContainer" instance=ExtResource("15_l5vi8")]
+layout_mode = 2
+
+[node name="King CardPack9" parent="CanvasLayer/Store/Store/MarginContainer/ScrollContainer/VBoxContainer2/VBoxContainer" instance=ExtResource("15_l5vi8")]
+layout_mode = 2
+
+[node name="Inventory" type="PanelContainer" parent="CanvasLayer/Store/Store/MarginContainer/ScrollContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_50jxv")
+script = ExtResource("16_nyn40")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Store/Store/MarginContainer/ScrollContainer/VBoxContainer2/Inventory"]
+layout_mode = 2
+
+[node name="Buttons" type="Control" parent="CanvasLayer/Store"]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+theme = SubResource("Theme_oqbkv")
+script = ExtResource("17_p7rhp")
+
+[node name="HBoxContainer" type="GridContainer" parent="CanvasLayer/Store/Buttons"]
+layout_mode = 2
+offset_left = 8.0
+offset_top = 9.0
+offset_right = 452.0
+offset_bottom = 250.0
+columns = 2
+metadata/_edit_group_ = true
+
+[node name="DrawButton" type="Button" parent="CanvasLayer/Store/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Draw"
+
+[node name="Draw3Button" type="Button" parent="CanvasLayer/Store/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Draw 3"
+
+[node name="SortButton" type="Button" parent="CanvasLayer/Store/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Sort Hand"
+
+[node name="DiscardRandomButton" type="Button" parent="CanvasLayer/Store/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Discard Random"
+
+[node name="DiscardHandButton" type="Button" parent="CanvasLayer/Store/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Discard Hand"
+
+[node name="AddJokerToHandButton" type="Button" parent="CanvasLayer/Store/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Add Joker To Hand"
+
+[node name="AddJokerToDiscardButton" type="Button" parent="CanvasLayer/Store/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Add Joker To Discard"
+
+[node name="RandomDiscardToHandButton" type="Button" parent="CanvasLayer/Store/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Return Random Discard
+To Hand"
+
+[node name="AddJokerToDropzonesButton" type="Button" parent="CanvasLayer/Store/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Add Joker To Dropzones"
+
+[node name="MoveFromDropzoneToPileButton" type="Button" parent="CanvasLayer/Store/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Discard Top Card
+of all Dropzones"
+
+[node name="MoveClubToDiamonds" type="Button" parent="CanvasLayer/Store/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Move Top Club Dropzone
+to Diamonds"
+
+[node name="RemoveRandCardInHandFromGame" type="Button" parent="CanvasLayer/Store/Buttons/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Remove Random Card
+In Hand From Game"
+
+[node name="CardPileUIDebugger" type="RichTextLabel" parent="CanvasLayer/Store/Buttons" node_paths=PackedStringArray("card_pile_ui")]
+visible = false
+layout_mode = 2
+offset_left = 8.0
+offset_top = 296.0
+offset_right = 312.0
+offset_bottom = 392.0
+scroll_following = true
+script = ExtResource("18_xlahe")
+card_pile_ui = NodePath("../../../../CardPileUI")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Store"]
+visible = false
+material = SubResource("ShaderMaterial_ukyk7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -166.0
+offset_top = -106.0
+offset_right = 1618.0
+offset_bottom = 1022.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.14902, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="CanvasLayer/Store"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -214.0
+offset_top = -146.0
+offset_right = 1658.0
+offset_bottom = 1038.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.254902, 0, 0.886275)
+
+[node name="SettingsMenu" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_ixt8c")
+script = ExtResource("19_ifpq3")
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/SettingsMenu"]
+self_modulate = Color(1, 1, 1, 0)
+material = SubResource("ShaderMaterial_ukyk7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -166.0
+offset_top = -106.0
+offset_right = 80.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.14902, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/SettingsMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -214.0
+offset_top = -146.0
+offset_right = 56.0
+offset_bottom = 72.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.254902, 0, 0.886275)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SettingsMenu"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 107.0
+grow_horizontal = 2
+theme_override_constants/separation = 50
+
+[node name="Settings" type="Label" parent="CanvasLayer/SettingsMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("6_ywkqf")
+theme_override_font_sizes/font_size = 91
+text = "Settings
+"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/SettingsMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_81cmb")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/SettingsMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 50
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_bottom = 50
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/SettingsMenu/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="CheckBox" type="CheckButton" parent="CanvasLayer/SettingsMenu/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/pressed = SubResource("StyleBoxLine_xhw47")
+text = "Card Shine Effect"
+flat = true
+expand_icon = true
+
+[node name="VSeparator" type="VSeparator" parent="CanvasLayer/SettingsMenu/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_p6rr2")
+
+[node name="CheckBox2" type="CheckButton" parent="CanvasLayer/SettingsMenu/VBoxContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/pressed = SubResource("StyleBoxLine_xhw47")
+text = "Music"
+flat = true
+expand_icon = true
+
+[node name="ItemDescriptions" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(500, 250)
+theme = SubResource("Theme_f0vhe")
+script = ExtResource("20_fad84")
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer/ItemDescriptions"]
+material = SubResource("ShaderMaterial_ukyk7")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.14902, 0, 1)
+
+[node name="ColorRect3" type="ColorRect" parent="CanvasLayer/ItemDescriptions"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.254902, 0, 0.886275)
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/ItemDescriptions"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.862745)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/ItemDescriptions"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -574.0
+offset_right = -100.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="ItemList" type="PanelContainer" parent="CanvasLayer/ItemDescriptions/ScrollContainer"]
+material = SubResource("ShaderMaterial_k7sl0")
+layout_mode = 2
+theme = SubResource("Theme_qtc2h")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/ItemDescriptions/ScrollContainer/ItemList"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Items" type="VBoxContainer" parent="CanvasLayer/ItemDescriptions/ScrollContainer/ItemList/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/ItemDescriptions/ScrollContainer/ItemList/MarginContainer/Items"]
+layout_mode = 2
+text = "card list"
+horizontal_alignment = 1
+
+[node name="HSeparator4" type="HSeparator" parent="CanvasLayer/ItemDescriptions/ScrollContainer/ItemList/MarginContainer/Items"]
+layout_mode = 2
+theme_override_constants/separation = 65
+theme_override_styles/separator = SubResource("StyleBoxLine_d2cih")
+
+[node name="RerollImage" type="TextureRect" parent="CanvasLayer/ItemDescriptions/ScrollContainer/ItemList/MarginContainer/Items"]
+layout_mode = 2
+texture = ExtResource("21_tnwmp")
+stretch_mode = 3
+
+[node name="Reroll" type="Label" parent="CanvasLayer/ItemDescriptions/ScrollContainer/ItemList/MarginContainer/Items"]
+layout_mode = 2
+text = "reroll"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="CanvasLayer/ItemDescriptions/ScrollContainer/ItemList/MarginContainer/Items"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "reroll lets you reroll
+ your cards
+ and draws two cards when clicked"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="CanvasLayer/ItemDescriptions/ScrollContainer/ItemList/MarginContainer/Items"]
+layout_mode = 2
+theme_override_constants/separation = 65
+theme_override_styles/separator = SubResource("StyleBoxLine_d2cih")
+
+[node name="Image" type="TextureRect" parent="CanvasLayer/ItemDescriptions/ScrollContainer/ItemList/MarginContainer/Items"]
+layout_mode = 2
+texture = ExtResource("22_2e3hd")
+stretch_mode = 3
+
+[node name="name" type="Label" parent="CanvasLayer/ItemDescriptions/ScrollContainer/ItemList/MarginContainer/Items"]
+layout_mode = 2
+text = "Split"
+horizontal_alignment = 1
+
+[node name="Description2" type="Label" parent="CanvasLayer/ItemDescriptions/ScrollContainer/ItemList/MarginContainer/Items"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Split lets you
+ half your hand value when clicked"
+horizontal_alignment = 1
+
+[node name="HSeparator2" type="HSeparator" parent="CanvasLayer/ItemDescriptions/ScrollContainer/ItemList/MarginContainer/Items"]
+layout_mode = 2
+theme_override_constants/separation = 65
+theme_override_styles/separator = SubResource("StyleBoxLine_d2cih")
+
+[node name="Image2" type="TextureRect" parent="CanvasLayer/ItemDescriptions/ScrollContainer/ItemList/MarginContainer/Items"]
+layout_mode = 2
+texture = ExtResource("23_lwef1")
+stretch_mode = 3
+
+[node name="name2" type="Label" parent="CanvasLayer/ItemDescriptions/ScrollContainer/ItemList/MarginContainer/Items"]
+layout_mode = 2
+text = "DOuble"
+horizontal_alignment = 1
+
+[node name="Description3" type="Label" parent="CanvasLayer/ItemDescriptions/ScrollContainer/ItemList/MarginContainer/Items"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Double lets you double your hand value
+ when clicked"
+horizontal_alignment = 1
+
+[node name="HSeparator3" type="HSeparator" parent="CanvasLayer/ItemDescriptions/ScrollContainer/ItemList/MarginContainer/Items"]
+layout_mode = 2
+theme_override_constants/separation = 65
+theme_override_styles/separator = SubResource("StyleBoxLine_d2cih")
+
+[node name="Image3" type="TextureRect" parent="CanvasLayer/ItemDescriptions/ScrollContainer/ItemList/MarginContainer/Items"]
+layout_mode = 2
+texture = ExtResource("24_21pv7")
+stretch_mode = 3
+
+[node name="name3" type="Label" parent="CanvasLayer/ItemDescriptions/ScrollContainer/ItemList/MarginContainer/Items"]
+layout_mode = 2
+text = "plus"
+horizontal_alignment = 1
+
+[node name="Description4" type="Label" parent="CanvasLayer/ItemDescriptions/ScrollContainer/ItemList/MarginContainer/Items"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Plus lets you add 3 to your hand value 
+when clicked"
+horizontal_alignment = 1
+
+[node name="Special" type="ScrollContainer" parent="CanvasLayer/ItemDescriptions"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -110.0
+offset_right = 412.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="ItemList" type="PanelContainer" parent="CanvasLayer/ItemDescriptions/Special"]
+layout_mode = 2
+theme = SubResource("Theme_qtc2h")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/ItemDescriptions/Special/ItemList"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Items" type="VBoxContainer" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer/Items"]
+layout_mode = 2
+text = "special card list"
+horizontal_alignment = 1
+
+[node name="HSeparator4" type="HSeparator" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer/Items"]
+layout_mode = 2
+theme_override_constants/separation = 65
+theme_override_styles/separator = SubResource("StyleBoxLine_d2cih")
+
+[node name="RerollImage" type="TextureRect" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer/Items"]
+layout_mode = 2
+texture = ExtResource("25_7dtam")
+stretch_mode = 3
+
+[node name="Reroll" type="Label" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer/Items"]
+layout_mode = 2
+text = "Multiply"
+horizontal_alignment = 1
+
+[node name="Description" type="Label" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer/Items"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "this card will multiply
+ your bets when you win
+ not when you lose"
+horizontal_alignment = 1
+
+[node name="HSeparator5" type="HSeparator" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer/Items"]
+layout_mode = 2
+theme_override_constants/separation = 65
+theme_override_styles/separator = SubResource("StyleBoxLine_d2cih")
+
+[node name="image" type="TextureRect" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer/Items"]
+layout_mode = 2
+texture = ExtResource("26_k1bi6")
+stretch_mode = 3
+
+[node name="name" type="Label" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer/Items"]
+layout_mode = 2
+text = "Five Card Charlie"
+horizontal_alignment = 1
+
+[node name="Description2" type="Label" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer/Items"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Five Card Charlie gives you automatic win
+ if you 5 cards in your deck
+ without going bust"
+horizontal_alignment = 1
+
+[node name="HSeparator6" type="HSeparator" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer/Items"]
+layout_mode = 2
+theme_override_constants/separation = 65
+theme_override_styles/separator = SubResource("StyleBoxLine_d2cih")
+
+[node name="image2" type="TextureRect" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer/Items"]
+layout_mode = 2
+texture = ExtResource("27_oru2s")
+stretch_mode = 3
+
+[node name="name2" type="Label" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer/Items"]
+layout_mode = 2
+text = "Perfect Pair"
+horizontal_alignment = 1
+
+[node name="Description3" type="Label" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer/Items"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Perfect pair gives you automatic win
+ if you the exact card twice in a row"
+horizontal_alignment = 1
+
+[node name="HSeparator7" type="HSeparator" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer/Items"]
+layout_mode = 2
+theme_override_constants/separation = 65
+theme_override_styles/separator = SubResource("StyleBoxLine_d2cih")
+
+[node name="image3" type="TextureRect" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer/Items"]
+layout_mode = 2
+texture = ExtResource("28_x0y64")
+stretch_mode = 3
+
+[node name="name3" type="Label" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer/Items"]
+layout_mode = 2
+text = "Dealer Reveal"
+horizontal_alignment = 1
+
+[node name="Description4" type="Label" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer/Items"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Dealer Reveal lets you see what hand value
+ the dealer has"
+horizontal_alignment = 1
+
+[node name="HSeparator8" type="HSeparator" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer/Items"]
+layout_mode = 2
+theme_override_constants/separation = 65
+theme_override_styles/separator = SubResource("StyleBoxLine_d2cih")
+
+[node name="image4" type="TextureRect" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer/Items"]
+layout_mode = 2
+texture = ExtResource("29_4bsjt")
+stretch_mode = 3
+
+[node name="name4" type="Label" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer/Items"]
+layout_mode = 2
+text = "Lucky Streak"
+horizontal_alignment = 1
+
+[node name="Description5" type="Label" parent="CanvasLayer/ItemDescriptions/Special/ItemList/MarginContainer/Items"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 28
+text = "Lucky Streak will give you 600 * boss lv
+ to your bank if you get 3 wins in a row"
+horizontal_alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -152.0
+offset_top = 8.0
+offset_right = -12.0
+offset_bottom = 80.0
+grow_horizontal = 0
+theme_override_styles/panel = SubResource("StyleBoxFlat_eason")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PanelContainer2"]
+layout_mode = 2
+
+[node name="Settings" type="TextureButton" parent="CanvasLayer/PanelContainer2/HBoxContainer"]
+visible = false
+layout_mode = 2
+texture_normal = ExtResource("30_6r40n")
+
+[node name="Items" type="TextureButton" parent="CanvasLayer/PanelContainer2/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("30_6r40n")
+stretch_mode = 3
+
+[node name="StoreButton" type="TextureButton" parent="CanvasLayer/PanelContainer2/HBoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("31_4t0mk")
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+layer = -4
+
+[node name="PostProcess" type="CanvasLayer" parent="."]
+script = ExtResource("32_xnp1a")
+configuration = SubResource("Resource_5snt6")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("34_mw7qm")
+volume_db = -12.18
+autoplay = true
+
+[node name="Start" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("35_yu0up")
+
+[node name="click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("36_xs2yf")
+pitch_scale = 3.38
+
+[node name="openShop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("37_3r8mw")
+volume_db = 8.072
+
+[node name="openInfo" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("38_tbnyy")
+
+[node name="unbox" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("39_bc82v")
+pitch_scale = 4.0
+
+[node name="Notification" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("40_emjkm")
+volume_db = -9.369
+pitch_scale = 4.0
+
+[node name="money click" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("41_x3x8p")
+
+[node name="win" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("42_jmem0")
+autoplay = true
+
+[node name="lose" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("43_cnxkr")
+autoplay = true
+
+[node name="Sprite2D" type="ColorRect" parent="."]
+visible = false
+modulate = Color(0, 0.054902, 0, 1)
+offset_left = -89.0
+offset_top = 31.0
+offset_right = 135.0
+offset_bottom = 159.0
+scale = Vector2(7.085, 7.085)
+mouse_filter = 2
+
+[node name="PointLight2D" type="DirectionalLight2D" parent="."]
+rotation = -0.785398
+energy = 0.24
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.0352941)
+
+[node name="CanvasLayer3" type="CanvasLayer" parent="."]
+layer = -6
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer3"]
+material = SubResource("ShaderMaterial_ukyk7")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.14902, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="CanvasLayer3"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0.254902, 0, 0.886275)
+
+[connection signal="card_clicked" from="CardPileUI" to="ability" method="_on_card_pile_ui_card_clicked"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/HBoxContainer/Stand" to="CanvasLayer/CardCount" method="_on_stand_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/HBoxContainer/Surrender" to="CanvasLayer/CardCount" method="_on_surrender_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer/MarginContainer/HBoxContainer/ResetButton" to="." method="_on_reset_button_pressed"]
+[connection signal="focus_entered" from="CanvasLayer/bets/MarginContainer/VBoxContainer/HBoxContainer/+" to="CanvasLayer/bets/MarginContainer/VBoxContainer/HBoxContainer/BetNum" method="_on__focus_entered"]
+[connection signal="focus_exited" from="CanvasLayer/bets/MarginContainer/VBoxContainer/HBoxContainer/+" to="CanvasLayer/bets/MarginContainer/VBoxContainer/HBoxContainer/BetNum" method="_on__focus_exited"]
+[connection signal="mouse_entered" from="CanvasLayer/bets/MarginContainer/VBoxContainer/HBoxContainer/+" to="CanvasLayer/bets/MarginContainer/VBoxContainer/HBoxContainer/BetNum" method="_on__mouse_entered"]
+[connection signal="mouse_exited" from="CanvasLayer/bets/MarginContainer/VBoxContainer/HBoxContainer/+" to="CanvasLayer/bets/MarginContainer/VBoxContainer/HBoxContainer/BetNum" method="_on__mouse_exited"]
+[connection signal="pressed" from="CanvasLayer/bets/MarginContainer/VBoxContainer/HBoxContainer/+" to="CanvasLayer/bets/MarginContainer/VBoxContainer/HBoxContainer/BetNum" method="plus"]
+[connection signal="pressed" from="CanvasLayer/exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="CanvasLayer/Store/Buttons/HBoxContainer/DrawButton" to="." method="_on_draw_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Store/Buttons/HBoxContainer/Draw3Button" to="." method="_on_draw_3_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Store/Buttons/HBoxContainer/SortButton" to="." method="_on_sort_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Store/Buttons/HBoxContainer/DiscardRandomButton" to="." method="_on_discard_random_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Store/Buttons/HBoxContainer/DiscardHandButton" to="." method="_on_discard_hand_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Store/Buttons/HBoxContainer/AddJokerToHandButton" to="." method="_on_add_joker_to_hand_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Store/Buttons/HBoxContainer/AddJokerToDiscardButton" to="." method="_on_add_joker_to_discard_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Store/Buttons/HBoxContainer/RandomDiscardToHandButton" to="." method="_on_random_discard_to_hand_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Store/Buttons/HBoxContainer/AddJokerToDropzonesButton" to="." method="_on_add_joker_to_dropzones_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Store/Buttons/HBoxContainer/MoveFromDropzoneToPileButton" to="." method="_on_move_from_dropzone_to_pile_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Store/Buttons/HBoxContainer/MoveClubToDiamonds" to="." method="_on_move_club_to_diamonds_pressed"]
+[connection signal="pressed" from="CanvasLayer/Store/Buttons/HBoxContainer/RemoveRandCardInHandFromGame" to="." method="_on_remove_rand_card_in_hand_from_game_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer2/HBoxContainer/Settings" to="CanvasLayer/SettingsMenu" method="_on_settings_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer2/HBoxContainer/Items" to="CanvasLayer/ItemDescriptions" method="_on_items_pressed"]
+[connection signal="pressed" from="CanvasLayer/PanelContainer2/HBoxContainer/StoreButton" to="CanvasLayer/Store" method="_on_store_button_pressed"]
